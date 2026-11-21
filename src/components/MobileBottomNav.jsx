@@ -44,8 +44,10 @@ export const MobileBottomNav = () => {
 
         {/* Cart */}
         <button
-          onClick={() => setIsCartOpen(true)}
-          className="relative flex flex-col items-center gap-1 p-1 min-w-[48px] min-h-[44px] justify-center text-[#4F5938] hover:text-[#4A5520] transition-colors"
+          onClick={() => navigateTo('cart')}
+          className={`relative flex flex-col items-center gap-1 p-1 min-w-[48px] min-h-[44px] justify-center transition-colors ${
+            currentView === 'cart' ? 'text-[#4A5520] font-bold' : 'text-[#4F5938] hover:text-[#4A5520]'
+          }`}
         >
           <div className="relative">
             <ShoppingCart size={18} />

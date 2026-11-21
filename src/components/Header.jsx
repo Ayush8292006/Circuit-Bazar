@@ -437,6 +437,20 @@ export const Header = () => {
                         <span>All Products & Catalog</span>
                         <ArrowRight size={14} className="text-[#4A5520]" />
                       </button>
+
+                      <button
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          navigateTo('cart');
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl text-sm font-heading font-bold text-[#171D0A] hover:bg-[#EDE3CF] flex items-center justify-between transition-colors"
+                      >
+                        <span className="flex items-center gap-2">
+                          <ShoppingCart size={15} className="text-[#4A5520]" />
+                          <span>Shopping Cart ({cartCount})</span>
+                        </span>
+                        <ArrowRight size={14} className="text-[#4A5520]" />
+                      </button>
                     </div>
 
                     {/* Categories Taxonomies */}

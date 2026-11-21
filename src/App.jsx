@@ -12,6 +12,7 @@ import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
 import { ProductListingPage } from './pages/ProductListingPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
+import { CartPage } from './pages/CartPage';
 
 export const App = () => {
   const { currentView, showIntro, setShowIntro } = useShop();
@@ -34,6 +35,7 @@ export const App = () => {
       {currentView === 'home' && <HomePage />}
       {currentView === 'listing' && <ProductListingPage />}
       {currentView === 'detail' && <ProductDetailPage />}
+      {currentView === 'cart' && <CartPage />}
 
       {/* Slide-in Cart Drawer */}
       <CartDrawer />
