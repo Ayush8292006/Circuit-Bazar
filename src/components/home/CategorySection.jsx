@@ -9,38 +9,39 @@ export const CategorySection = () => {
   const { navigateTo } = useShop();
 
   return (
-    <section className="py-20 bg-[#EDE3CF] relative text-[#171D0A] border-t border-[#DFD4BD]">
+    <section className="py-14 sm:py-20 bg-[#EDE3CF] relative text-[#171D0A] border-t border-[#DFD4BD]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b-2 border-[#DFD4BD]">
+        <div className="flex items-end justify-between mb-6 pb-3 border-b-2 border-[#DFD4BD]">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#4A5520] uppercase tracking-wider mb-2">
-              <Layers size={14} /> Catalog Architecture
+            <div className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono font-bold text-[#4A5520] uppercase tracking-wider mb-1">
+              <Layers size={13} /> Categories
             </div>
-            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#171D0A]">
+            <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-[#171D0A]">
               Shop by Category
             </h2>
           </div>
           <button
             onClick={() => navigateTo('listing')}
-            className="mt-4 sm:mt-0 text-xs font-mono font-bold text-[#4A5520] hover:text-[#252D0F] flex items-center gap-1 group self-start"
+            className="text-xs font-mono font-bold text-[#4A5520] hover:text-[#252D0F] flex items-center gap-1 group self-center"
           >
-            <span>EXPLORE ALL CATEGORIES</span>
-            <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <span className="hidden sm:inline">EXPLORE ALL</span>
+            <span className="sm:hidden">ALL</span>
+            <ArrowUpRight size={13} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </button>
         </div>
 
-        {/* Categories: Desktop 4-col Grid | Mobile Horizontal Scroll with Snap */}
-        <div className="flex md:grid md:grid-cols-4 gap-4 overflow-x-auto md:overflow-visible pb-4 md:pb-0 scroll-snap-x snap-mandatory scrollbar-none -mx-4 px-4 md:mx-0 md:px-0">
+        {/* 2-Row Horizontal Scroll on Mobile / 4-Col Grid on Desktop */}
+        <div className="grid grid-rows-2 grid-flow-col auto-cols-[145px] sm:auto-cols-[180px] lg:grid-rows-none lg:grid-flow-row lg:grid-cols-4 gap-3 sm:gap-4 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 scroll-snap-x snap-mandatory scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
           {CATEGORIES.map((cat, idx) => (
             <motion.div
               key={cat.id}
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: idx * 0.05 }}
+              viewport={{ once: true, margin: '-20px' }}
+              transition={{ duration: 0.4, delay: idx * 0.04 }}
               onClick={() => navigateTo('listing', null, cat.id)}
-              className="group relative flex-shrink-0 w-64 sm:w-72 md:w-auto aspect-[4/5] rounded-2xl overflow-hidden bg-[#FAF6ED] border-2 border-[#4A5520]/25 hover:border-[#4A5520] transition-all duration-300 cursor-pointer snap-start flex flex-col justify-end p-5 shadow-sm hover:shadow-elevated"
+              className="group relative flex-shrink-0 w-full aspect-[4/3] sm:aspect-[4/5] rounded-xl sm:rounded-2xl overflow-hidden bg-[#FAF6ED] border-2 border-[#4A5520]/25 hover:border-[#4A5520] transition-all duration-300 cursor-pointer snap-start flex flex-col justify-end p-3 sm:p-5 shadow-sm hover:shadow-elevated"
             >
               {/* Real Category Photograph */}
               <div className="absolute inset-0 z-0">
@@ -51,25 +52,24 @@ export const CategorySection = () => {
                   className="w-full h-full object-cover transition-transform duration-700 ease-brand group-hover:scale-110"
                 />
                 {/* Dark Olive Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#171D0A] via-[#171D0A]/75 to-[#4A5520]/30 group-hover:via-[#262E10]/80 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#171D0A] via-[#171D0A]/75 to-[#4A5520]/25 group-hover:via-[#262E10]/80 transition-colors duration-500" />
               </div>
 
               {/* Card Meta Content */}
               <div className="relative z-10 text-white">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-mono text-[#F5C400] font-bold tracking-wider">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[10px] sm:text-[11px] font-mono text-[#F5C400] font-bold tracking-wider">
                     {cat.itemCount}
                   </span>
-                  {/* Arrow reveal on hover */}
-                  <div className="w-8 h-8 rounded-full bg-[#EDE3CF] group-hover:bg-[#F5C400] text-[#0B0B0A] flex items-center justify-center transition-all duration-300 opacity-90 group-hover:opacity-100 group-hover:rotate-45 shadow-sm">
-                    <ArrowUpRight size={16} />
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#EDE3CF] group-hover:bg-[#F5C400] text-[#0B0B0A] flex items-center justify-center transition-all duration-300 opacity-90 group-hover:opacity-100 group-hover:rotate-45 shadow-sm">
+                    <ArrowUpRight size={13} />
                   </div>
                 </div>
 
-                <h3 className="font-heading font-extrabold text-lg sm:text-xl text-white group-hover:text-[#F5C400] transition-colors leading-tight mb-1.5">
+                <h3 className="font-heading font-extrabold text-xs sm:text-base text-white group-hover:text-[#F5C400] transition-colors leading-tight line-clamp-1">
                   {cat.name}
                 </h3>
-                <p className="text-xs font-body text-[#EDE3CF]/85 line-clamp-2">
+                <p className="hidden sm:block text-xs font-body text-[#EDE3CF]/85 line-clamp-1 mt-0.5">
                   {cat.description}
                 </p>
               </div>

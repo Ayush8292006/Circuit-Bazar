@@ -79,21 +79,6 @@ export const HeroSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column: Headlines & Typography */}
           <div className="lg:col-span-6 flex flex-col items-start text-left">
-            {/* Live Status Pill */}
-            <motion.div
-              initial={{ opacity: 0, y: -15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF6ED] border border-[#4A5520]/30 mb-6 shadow-soft"
-            >
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#6B7A2A] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4A5520]"></span>
-              </span>
-              <span className="text-xs font-mono font-bold text-[#4A5520] tracking-wide">
-                AUTHENTIC SILICON • 24H EXPRESS DISPATCH
-              </span>
-            </motion.div>
 
             {/* Word-by-Word Headline Reveal */}
             <h1 className="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#171D0A] leading-[1.08] mb-6 flex flex-wrap gap-x-3.5 gap-y-1">
