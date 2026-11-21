@@ -33,13 +33,9 @@ export const CategorySection = () => {
 
         {/* 2-Row Horizontal Scroll on Mobile / 4-Col Grid on Desktop */}
         <div className="grid grid-rows-2 grid-flow-col auto-cols-[145px] sm:auto-cols-[180px] lg:grid-rows-none lg:grid-flow-row lg:grid-cols-4 gap-3 sm:gap-4 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 scroll-snap-x snap-mandatory scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
-          {CATEGORIES.map((cat, idx) => (
-            <motion.div
+          {CATEGORIES.map((cat) => (
+            <div
               key={cat.id}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-20px' }}
-              transition={{ duration: 0.4, delay: idx * 0.04 }}
               onClick={() => navigateTo('listing', null, cat.id)}
               className="group relative flex-shrink-0 w-full aspect-[4/3] sm:aspect-[4/5] rounded-xl sm:rounded-2xl overflow-hidden bg-[#FAF6ED] border-2 border-[#4A5520]/25 hover:border-[#4A5520] transition-all duration-300 cursor-pointer snap-start flex flex-col justify-end p-3 sm:p-5 shadow-sm hover:shadow-elevated"
             >
@@ -73,7 +69,7 @@ export const CategorySection = () => {
                   {cat.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

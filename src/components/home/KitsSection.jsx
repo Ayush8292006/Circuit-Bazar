@@ -46,13 +46,9 @@ export const KitsSection = () => {
 
         {/* Horizontal Scroll on Mobile / 2-Col Grid on Desktop */}
         <div className="flex md:grid md:grid-cols-2 gap-4 sm:gap-8 overflow-x-auto md:overflow-visible pb-4 md:pb-0 scroll-snap-x snap-mandatory scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
-          {KITS.map((kit, idx) => (
-            <motion.div
+          {KITS.map((kit) => (
+            <div
               key={kit.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-20px' }}
-              transition={{ duration: 0.5, delay: idx * 0.08 }}
               className="group flex-shrink-0 w-[270px] sm:w-[320px] md:w-auto bg-[#FAF6ED] rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-[#4A5520]/20 hover:border-[#4A5520] shadow-card-beige hover:shadow-2xl transition-all duration-300 flex flex-col justify-between snap-start"
             >
               {/* Kit Photo Banner */}
@@ -121,7 +117,7 @@ export const KitsSection = () => {
                   </button>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -44,15 +44,11 @@ export const WhyUsSection = () => {
 
         {/* 2-Row Horizontal Scroll on Mobile / 4-Col Grid on Desktop */}
         <div className="grid grid-rows-2 grid-flow-col auto-cols-[200px] sm:auto-cols-[240px] lg:grid-rows-none lg:grid-flow-row lg:grid-cols-4 gap-3 sm:gap-6 overflow-x-auto lg:overflow-visible pb-3 lg:pb-0 scroll-snap-x snap-mandatory scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
-          {USPS.map((usp, idx) => {
+          {USPS.map((usp) => {
             const Icon = usp.icon;
             return (
-              <motion.div
+              <div
                 key={usp.title}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.05 }}
                 className="bg-[#FAF6ED] p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 border-[#4A5520]/20 hover:border-[#4A5520] transition-all duration-300 flex flex-col justify-between group shadow-sm hover:shadow-elevated snap-start"
               >
                 <div>
@@ -77,7 +73,7 @@ export const WhyUsSection = () => {
                   <CheckCircle2 size={12} />
                   <span>SLA Guarantee</span>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

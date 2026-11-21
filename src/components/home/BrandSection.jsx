@@ -18,13 +18,9 @@ export const BrandSection = () => {
 
         {/* 2-Row Horizontal Scroll on Mobile / 4-Col Grid on Desktop */}
         <div className="grid grid-rows-2 grid-flow-col auto-cols-[135px] sm:auto-cols-[165px] md:grid-rows-none md:grid-flow-row md:grid-cols-4 gap-2.5 sm:gap-4 overflow-x-auto md:overflow-visible pb-3 md:pb-0 scroll-snap-x snap-mandatory scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
-          {BRANDS.map((brand, idx) => (
-            <motion.div
+          {BRANDS.map((brand) => (
+            <div
               key={brand.name}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.03 }}
               className="group p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-[#FAF6ED] border-2 border-[#4A5520]/20 hover:border-[#4A5520] hover:bg-[#FFFDF9] transition-all duration-300 flex flex-col items-center text-center cursor-default shadow-sm hover:shadow-elevated snap-start"
             >
               <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#EDE3CF] group-hover:bg-[#4A5520] border border-[#4A5520]/30 flex items-center justify-center text-[#4A5520] group-hover:text-[#F5C400] transition-colors mb-2 sm:mb-3">
@@ -42,7 +38,7 @@ export const BrandSection = () => {
               <span className="mt-1.5 text-[8px] sm:text-[10px] font-mono font-bold text-[#4A5520] bg-[#EDE3CF] px-1.5 py-0.5 rounded-full border border-[#4A5520]/20">
                 {brand.country}
               </span>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
