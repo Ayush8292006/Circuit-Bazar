@@ -16,21 +16,23 @@ import { ProductDetailPage } from './pages/ProductDetailPage';
 export const App = () => {
   const { currentView } = useShop();
 
-  // Initialize Lenis smooth scroll
+  // Initialize Lenis smooth scroll for desktop
   useLenis();
 
-  // Check if user visited in this session
+  // Check if user visited in this session (skip on mobile to prevent any black screen lag)
   const [showIntro, setShowIntro] = useState(() => {
     try {
+      const isMobile = window.innerWidth < 768 || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      if (isMobile) return false;
       return !sessionStorage.getItem('circuitbazzar_visited');
     } catch (e) {
-      return true;
+      return false;
     }
   });
 
   return (
-    <div className="relative min-h-screen bg-[#EDE3CF] text-[#171D0A] selection:bg-[#F5C400] selection:text-[#0B0B0A]">
-      {/* Intro Welcome Screen (First visit only) */}
+    <div className="relative min-h-screen bg-[#EDE3CF] text-[#171D0A] selection:bg-[#F5C400] selection:text-[#0B0B0A] overflow-x-hidden">
+      {/* Intro Welcome Screen (Desktop first visit only) */}
       {showIntro && <WelcomeScreen onComplete={() => setShowIntro(false)} />}
 
       {/* Desktop Custom Follower Cursor */}

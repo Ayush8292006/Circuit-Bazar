@@ -10,7 +10,7 @@ export const WelcomeScreen = ({ onComplete }) => {
   useEffect(() => {
     // 0 to 100% counter
     const startTime = Date.now();
-    const duration = 2800; // ms
+    const duration = 2000; // ms
 
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
@@ -25,7 +25,7 @@ export const WelcomeScreen = ({ onComplete }) => {
         clearInterval(interval);
         setTimeout(() => {
           handleFinish();
-        }, 600);
+        }, 300);
       }
     }, 25);
 
@@ -39,35 +39,35 @@ export const WelcomeScreen = ({ onComplete }) => {
     } catch (e) {}
     setTimeout(() => {
       onComplete?.();
-    }, 900); // Allow curtain wipe animation to finish
+    }, 600);
   };
 
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-[99999] pointer-events-auto flex items-center justify-center overflow-hidden">
-        {/* Left / Top Curtain Half */}
+        {/* Left / Top Curtain Half - Warm Beige & Olive */}
         <motion.div
           initial={{ y: 0 }}
           animate={{ y: isExiting ? '-100%' : 0 }}
-          transition={{ duration: 0.85, ease: [0.77, 0, 0.175, 1] }}
-          className="absolute top-0 left-0 w-full h-1/2 bg-[#0B0B0A] border-b border-[#6B7A2A]/20 z-10"
+          transition={{ duration: 0.65, ease: [0.77, 0, 0.175, 1] }}
+          className="absolute top-0 left-0 w-full h-1/2 bg-[#EDE3CF] border-b-2 border-[#4A5520]/25 z-10"
         />
 
         {/* Right / Bottom Curtain Half */}
         <motion.div
           initial={{ y: 0 }}
           animate={{ y: isExiting ? '100%' : 0 }}
-          transition={{ duration: 0.85, ease: [0.77, 0, 0.175, 1] }}
-          className="absolute bottom-0 left-0 w-full h-1/2 bg-[#0B0B0A] border-t border-[#6B7A2A]/20 z-10"
+          transition={{ duration: 0.65, ease: [0.77, 0, 0.175, 1] }}
+          className="absolute bottom-0 left-0 w-full h-1/2 bg-[#EDE3CF] border-t-2 border-[#4A5520]/25 z-10"
         />
 
         {/* Skip Button */}
         <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: isExiting ? 0 : 1 }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.2 }}
           onClick={handleFinish}
-          className="absolute top-6 right-6 z-30 px-4 py-1.5 rounded-full border border-[#EDE3CF]/20 text-xs font-mono text-[#EDE3CF] hover:border-[#F5C400] hover:text-[#F5C400] transition-colors"
+          className="absolute top-6 right-6 z-30 px-4 py-1.5 rounded-full border-2 border-[#4A5520]/30 text-xs font-mono font-bold text-[#4A5520] hover:bg-[#FAF6ED] transition-colors"
         >
           SKIP [ESC]
         </motion.button>
@@ -76,35 +76,34 @@ export const WelcomeScreen = ({ onComplete }) => {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: isExiting ? 0 : 1, scale: isExiting ? 1.05 : 1 }}
-          transition={{ duration: 0.4 }}
-          className="relative z-20 flex flex-col items-center justify-center px-4 max-w-lg text-center"
+          transition={{ duration: 0.3 }}
+          className="relative z-20 flex flex-col items-center justify-center px-4 max-w-lg text-center text-[#171D0A]"
         >
           {/* SVG Circuit Traces & Microchip Animation */}
-          <div className="relative w-48 h-48 mb-8 flex items-center justify-center">
+          <div className="relative w-44 h-44 mb-6 flex items-center justify-center">
             <svg
               className="absolute inset-0 w-full h-full"
               viewBox="0 0 200 200"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              {/* Outer Circuit Tracks */}
               <motion.path
                 d="M 10 100 L 45 100 L 70 75 L 100 75"
-                stroke="#6B7A2A"
+                stroke="#4A5520"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
               />
               <motion.path
                 d="M 190 100 L 155 100 L 130 125 L 100 125"
-                stroke="#6B7A2A"
+                stroke="#4A5520"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
               />
               <motion.path
                 d="M 100 10 L 100 45 L 75 70"
@@ -113,7 +112,7 @@ export const WelcomeScreen = ({ onComplete }) => {
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ duration: 1.8, delay: 0.2, ease: "easeInOut" }}
+                transition={{ duration: 1.4, delay: 0.2, ease: "easeInOut" }}
               />
               <motion.path
                 d="M 100 190 L 100 155 L 125 130"
@@ -122,30 +121,29 @@ export const WelcomeScreen = ({ onComplete }) => {
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ duration: 1.8, delay: 0.2, ease: "easeInOut" }}
+                transition={{ duration: 1.4, delay: 0.2, ease: "easeInOut" }}
               />
 
-              {/* Solder Points */}
               <circle cx="10" cy="100" r="3.5" fill="#F5C400" />
               <circle cx="190" cy="100" r="3.5" fill="#F5C400" />
-              <circle cx="100" cy="10" r="3.5" fill="#6B7A2A" />
-              <circle cx="100" cy="190" r="3.5" fill="#6B7A2A" />
+              <circle cx="100" cy="10" r="3.5" fill="#4A5520" />
+              <circle cx="100" cy="190" r="3.5" fill="#4A5520" />
             </svg>
 
-            {/* Central Morphing Icon */}
-            <div className="relative w-24 h-24 rounded-2xl bg-[#141412] border-2 border-[#6B7A2A] flex items-center justify-center shadow-[0_0_30px_rgba(107,122,42,0.3)]">
+            {/* Central Morphing Icon in Ivory Card */}
+            <div className="relative w-24 h-24 rounded-2xl bg-[#FAF6ED] border-2 border-[#4A5520] flex items-center justify-center shadow-elevated">
               {phase === 'cart' || phase === 'logo' ? (
                 <motion.div
                   key="cart"
                   initial={{ scale: 0, rotate: -45 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ type: 'spring', damping: 15 }}
-                  className="text-[#F5C400] relative"
+                  className="text-[#4A5520] relative"
                 >
-                  <ShoppingCart size={42} strokeWidth={2.2} />
+                  <ShoppingCart size={40} strokeWidth={2.2} />
                   <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A3B04B] opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[#6B7A2A]"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F5C400] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[#4A5520]"></span>
                   </span>
                 </motion.div>
               ) : (
@@ -154,24 +152,24 @@ export const WelcomeScreen = ({ onComplete }) => {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.4 }}
-                  className="text-[#A3B04B]"
+                  className="text-[#4A5520]"
                 >
-                  <Cpu size={46} strokeWidth={1.8} />
+                  <Cpu size={42} strokeWidth={1.8} />
                 </motion.div>
               )}
             </div>
           </div>
 
           {/* Logo Reveal & Brand Typography */}
-          <div className="overflow-hidden mb-3">
+          <div className="overflow-hidden mb-2">
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: phase === 'logo' || phase === 'cart' ? 0 : 50, opacity: phase === 'logo' || phase === 'cart' ? 1 : 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-center justify-center gap-1 font-heading font-extrabold text-3xl sm:text-4xl tracking-tight"
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="flex items-center justify-center gap-1 font-heading font-extrabold text-3xl sm:text-4xl tracking-tight text-[#171D0A]"
             >
-              <span className="text-white">Circuit</span>
-              <span className="text-[#F5C400]">Bazzar</span>
+              <span>Circuit</span>
+              <span className="text-[#4A5520]">Bazzar</span>
             </motion.div>
           </div>
 
@@ -179,29 +177,29 @@ export const WelcomeScreen = ({ onComplete }) => {
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: phase === 'logo' ? 1 : 0 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="w-32 h-1 bg-[#6B7A2A] rounded-full mb-4 shadow-[0_0_12px_#6B7A2A]"
+            transition={{ duration: 0.4, ease: 'easeOut' }}
+            className="w-28 h-1 bg-[#4A5520] rounded-full mb-3"
           />
 
           {/* Tagline */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: phase === 'logo' ? 1 : 0, y: phase === 'logo' ? 0 : 10 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-sm sm:text-base font-body text-[#EDE3CF]/80 tracking-wide mb-6"
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="text-xs sm:text-sm font-body text-[#3E4924] font-semibold tracking-wide mb-5"
           >
             Every component. One bazaar.
           </motion.p>
 
           {/* Loading Counter & Progress Bar */}
-          <div className="w-56 flex flex-col items-center">
-            <div className="w-full flex justify-between items-center text-xs font-mono text-[#EDE3CF]/70 mb-2">
-              <span className="text-[#6B7A2A]">INITIALIZING_HARDWARE</span>
-              <span className="text-[#F5C400] font-bold">{progress}%</span>
+          <div className="w-52 flex flex-col items-center">
+            <div className="w-full flex justify-between items-center text-[10px] font-mono font-bold text-[#4F5938] mb-1.5">
+              <span>LOADING_HARDWARE</span>
+              <span className="text-[#4A5520]">{progress}%</span>
             </div>
-            <div className="w-full h-1 bg-[#262622] rounded-full overflow-hidden">
+            <div className="w-full h-1.5 bg-[#DFD4BD] rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-[#6B7A2A] via-[#A3B04B] to-[#F5C400]"
+                className="h-full bg-gradient-to-r from-[#6B7A2A] to-[#4A5520]"
                 style={{ width: `${progress}%` }}
               />
             </div>

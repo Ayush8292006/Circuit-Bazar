@@ -13,7 +13,7 @@ import { TestimonialsSection } from '../components/home/TestimonialsSection';
 
 export const HomePage = () => {
   return (
-    <main className="min-h-screen bg-[#0B0B0A] text-white">
+    <main className="min-h-screen bg-[#EDE3CF] text-[#171D0A]">
       {/* a) Hero */}
       <HeroSection />
 
