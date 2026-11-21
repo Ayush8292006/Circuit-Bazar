@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search,
@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { CATEGORIES } from '../data/categories';
-import { BRANDS } from '../data/kits';
 
 const SEARCH_PLACEHOLDERS = [
   "Search 'Arduino Uno R3'...",
@@ -49,20 +48,14 @@ export const Header = () => {
   const [displayedPlaceholder, setDisplayedPlaceholder] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Scroll detection for sticky header transition
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Typing animation for search input placeholder
   useEffect(() => {
     const currentWord = SEARCH_PLACEHOLDERS[placeholderIndex];
     let typingSpeed = isDeleting ? 30 : 60;
@@ -95,8 +88,8 @@ export const Header = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#0B0B0A]/90 backdrop-blur-md border-b border-[#6B7A2A]/30 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
-            : 'bg-gradient-to-b from-[#0B0B0A]/95 via-[#0B0B0A]/70 to-transparent py-4'
+            ? 'bg-[#EDE3CF]/95 backdrop-blur-md border-b border-[#4A5520]/25 py-3 shadow-[0_4px_25px_rgba(74,85,32,0.08)]'
+            : 'bg-gradient-to-b from-[#EDE3CF] via-[#EDE3CF]/80 to-transparent py-4'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -106,13 +99,12 @@ export const Header = () => {
               onClick={() => navigateTo('home')}
               className="flex items-center gap-2.5 cursor-pointer select-none group"
             >
-              <div className="relative h-10 w-auto flex items-center">
+              <div className="relative h-10 w-auto flex items-center bg-[#0B0B0A] px-2.5 py-1 rounded-xl shadow-sm border border-[#4A5520]/30 transition-transform duration-300 group-hover:scale-105">
                 <img
                   src="/logo.png"
                   alt="CircuitBazzar Logo"
-                  className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                  className="h-7 w-auto object-contain"
                   onError={(e) => {
-                    // Fallback to text logo if image fails
                     e.currentTarget.style.display = 'none';
                   }}
                 />
@@ -120,13 +112,13 @@ export const Header = () => {
             </div>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-1 font-body text-sm font-medium">
+            <nav className="hidden lg:flex items-center gap-1 font-body text-sm font-semibold">
               <button
                 onClick={() => navigateTo('home')}
                 className={`px-3 py-1.5 rounded-lg transition-colors ${
                   currentView === 'home'
-                    ? 'text-[#F5C400] bg-[#141412]'
-                    : 'text-[#EDE3CF] hover:text-[#F5C400]'
+                    ? 'text-[#4A5520] bg-[#DFD4BD]/60 font-bold'
+                    : 'text-[#171D0A] hover:text-[#4A5520]'
                 }`}
               >
                 Home
@@ -140,13 +132,13 @@ export const Header = () => {
               >
                 <button
                   onClick={() => navigateTo('listing')}
-                  className="px-3 py-1.5 rounded-lg text-[#EDE3CF] hover:text-[#F5C400] flex items-center gap-1.5 transition-colors"
+                  className="px-3 py-1.5 rounded-lg text-[#171D0A] hover:text-[#4A5520] flex items-center gap-1.5 transition-colors"
                 >
                   <span>Categories</span>
                   <ChevronDown
                     size={14}
                     className={`transition-transform duration-200 ${
-                      isMegaMenuOpen ? 'rotate-180 text-[#F5C400]' : ''
+                      isMegaMenuOpen ? 'rotate-180 text-[#4A5520]' : ''
                     }`}
                   />
                 </button>
@@ -159,11 +151,11 @@ export const Header = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.22, ease: 'easeOut' }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 w-[780px] bg-[#141412] border border-[#6B7A2A]/40 rounded-2xl p-6 shadow-2xl backdrop-blur-xl z-50 grid grid-cols-3 gap-6"
+                      className="absolute top-full left-1/2 -translate-x-1/2 w-[780px] bg-[#FAF6ED] border-2 border-[#4A5520]/30 rounded-2xl p-6 shadow-2xl backdrop-blur-xl z-50 grid grid-cols-3 gap-6 text-[#171D0A]"
                     >
                       <div className="col-span-2">
-                        <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#262622]">
-                          <span className="text-xs font-mono uppercase tracking-wider text-[#A3B04B]">
+                        <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#DFD4BD]">
+                          <span className="text-xs font-mono uppercase tracking-wider text-[#4A5520] font-bold">
                             Component Taxonomies
                           </span>
                           <button
@@ -171,7 +163,7 @@ export const Header = () => {
                               setIsMegaMenuOpen(false);
                               navigateTo('listing');
                             }}
-                            className="text-xs font-mono text-[#F5C400] flex items-center gap-1 hover:underline"
+                            className="text-xs font-mono text-[#4A5520] font-bold flex items-center gap-1 hover:text-[#6B7A2A] hover:underline"
                           >
                             View All Catalog ({CATEGORIES.length}) <ArrowRight size={12} />
                           </button>
@@ -184,9 +176,9 @@ export const Header = () => {
                                 setIsMegaMenuOpen(false);
                                 navigateTo('listing', null, cat.id);
                               }}
-                              className="group/item flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#1E1E1B] transition-all cursor-pointer border border-transparent hover:border-[#6B7A2A]/30"
+                              className="group/item flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#EDE3CF] transition-all cursor-pointer border border-transparent hover:border-[#4A5520]/30"
                             >
-                              <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-[#EDE3CF] border border-[#6B7A2A]/20">
+                              <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-[#EDE3CF] border border-[#4A5520]/20">
                                 <img
                                   src={cat.image}
                                   alt={cat.name}
@@ -194,10 +186,10 @@ export const Header = () => {
                                 />
                               </div>
                               <div className="min-w-0">
-                                <p className="text-sm font-heading font-semibold text-white group-hover/item:text-[#F5C400] truncate">
+                                <p className="text-sm font-heading font-bold text-[#171D0A] group-hover/item:text-[#4A5520] truncate">
                                   {cat.name}
                                 </p>
-                                <p className="text-[11px] font-mono text-[#EDE3CF]/60">
+                                <p className="text-[11px] font-mono text-[#4F5938]">
                                   {cat.itemCount}
                                 </p>
                               </div>
@@ -207,15 +199,15 @@ export const Header = () => {
                       </div>
 
                       {/* Featured Promo in Mega Menu */}
-                      <div className="bg-[#1E1E1B] border border-[#6B7A2A]/30 rounded-xl p-4 flex flex-col justify-between">
+                      <div className="bg-[#EDE3CF] border border-[#4A5520]/30 rounded-xl p-4 flex flex-col justify-between">
                         <div>
-                          <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#6B7A2A]/30 text-[#A3B04B] text-[10px] font-mono mb-2">
+                          <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#4A5520]/15 text-[#4A5520] text-[10px] font-mono font-bold mb-2">
                             <Sparkles size={10} /> Maker Kits 2026
                           </div>
-                          <h4 className="font-heading font-bold text-sm text-white mb-1">
+                          <h4 className="font-heading font-bold text-sm text-[#171D0A] mb-1">
                             Student & Lab Bundles
                           </h4>
-                          <p className="text-xs text-[#EDE3CF]/70 font-body mb-4">
+                          <p className="text-xs text-[#4F5938] font-body mb-4">
                             Save up to 35% on complete robotics & IoT starters verified for universities.
                           </p>
                         </div>
@@ -225,9 +217,9 @@ export const Header = () => {
                             setIsMegaMenuOpen(false);
                             navigateTo('listing', null, 'dev-boards');
                           }}
-                          className="w-full py-2 px-3 rounded-lg bg-[#F5C400] text-[#0B0B0A] font-heading font-bold text-xs hover:bg-[#E5B700] transition-colors flex items-center justify-center gap-1.5"
+                          className="w-full py-2 px-3 rounded-lg bg-[#4A5520] hover:bg-[#384318] text-[#F7F2E7] font-heading font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm"
                         >
-                          Explore Kits <ArrowRight size={14} />
+                          Explore Kits <ArrowRight size={14} className="text-[#F5C400]" />
                         </button>
                       </div>
                     </motion.div>
@@ -239,8 +231,8 @@ export const Header = () => {
                 onClick={() => navigateTo('listing')}
                 className={`px-3 py-1.5 rounded-lg transition-colors ${
                   currentView === 'listing'
-                    ? 'text-[#F5C400] bg-[#141412]'
-                    : 'text-[#EDE3CF] hover:text-[#F5C400]'
+                    ? 'text-[#4A5520] bg-[#DFD4BD]/60 font-bold'
+                    : 'text-[#171D0A] hover:text-[#4A5520]'
                 }`}
               >
                 All Components
@@ -252,7 +244,7 @@ export const Header = () => {
                   if (b2bSection) b2bSection.scrollIntoView({ behavior: 'smooth' });
                   else navigateTo('home');
                 }}
-                className="px-3 py-1.5 rounded-lg text-[#EDE3CF] hover:text-[#F5C400] transition-colors"
+                className="px-3 py-1.5 rounded-lg text-[#171D0A] hover:text-[#4A5520] transition-colors"
               >
                 B2B Bulk Orders
               </button>
@@ -261,7 +253,7 @@ export const Header = () => {
             {/* Live Search Bar with Category Select */}
             <form
               onSubmit={handleSearchSubmit}
-              className="hidden md:flex flex-1 max-w-md items-center bg-[#171715] border border-[#262622] focus-within:border-[#F5C400] rounded-xl overflow-hidden transition-all duration-200"
+              className="hidden md:flex flex-1 max-w-md items-center bg-[#FAF6ED] border-2 border-[#4A5520]/25 focus-within:border-[#4A5520] rounded-xl overflow-hidden transition-all duration-200 shadow-sm"
             >
               {/* Category Dropdown */}
               <select
@@ -270,11 +262,11 @@ export const Header = () => {
                   setSelectedCategory(e.target.value);
                   navigateTo('listing', null, e.target.value);
                 }}
-                className="bg-transparent text-xs font-mono text-[#EDE3CF]/80 px-2.5 py-2.5 outline-none border-r border-[#262622] hover:text-white cursor-pointer"
+                className="bg-transparent text-xs font-mono font-medium text-[#4F5938] px-2.5 py-2.5 outline-none border-r border-[#4A5520]/20 hover:text-[#171D0A] cursor-pointer"
               >
-                <option value="all" className="bg-[#141412] text-white">All Items</option>
+                <option value="all" className="bg-[#FAF6ED] text-[#171D0A]">All Items</option>
                 {CATEGORIES.map((cat) => (
-                  <option key={cat.id} value={cat.id} className="bg-[#141412] text-white">
+                  <option key={cat.id} value={cat.id} className="bg-[#FAF6ED] text-[#171D0A]">
                     {cat.name}
                   </option>
                 ))}
@@ -287,41 +279,41 @@ export const Header = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={displayedPlaceholder}
-                  className="w-full bg-transparent px-3 py-2 text-sm text-white placeholder-[#EDE3CF]/40 outline-none font-body"
+                  className="w-full bg-transparent px-3 py-2 text-sm text-[#171D0A] placeholder-[#4F5938]/60 outline-none font-body font-medium"
                 />
               </div>
 
               <button
                 type="submit"
-                className="px-3.5 py-2.5 text-[#EDE3CF]/70 hover:text-[#F5C400] transition-colors"
+                className="px-3.5 py-2.5 text-[#4F5938] hover:text-[#4A5520] transition-colors"
                 aria-label="Submit Search"
               >
                 <Search size={16} />
               </button>
             </form>
 
-            {/* Right Action Icons: Account, Wishlist, Cart */}
+            {/* Right Action Icons: Wishlist, Cart */}
             <div className="flex items-center gap-1.5 sm:gap-3">
               {/* Wishlist Button */}
               <button
                 onClick={() => navigateTo('listing')}
-                className="relative p-2 rounded-xl text-[#EDE3CF] hover:text-[#F5C400] hover:bg-[#171715] transition-colors"
+                className="relative p-2 rounded-xl text-[#171D0A] hover:text-[#4A5520] hover:bg-[#DFD4BD]/60 transition-colors"
                 title="Wishlist"
               >
-                <Heart size={20} className={wishlist.length > 0 ? 'fill-[#F5C400] text-[#F5C400]' : ''} />
+                <Heart size={20} className={wishlist.length > 0 ? 'fill-[#6B7A2A] text-[#6B7A2A]' : ''} />
                 {wishlist.length > 0 && (
-                  <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#F5C400]" />
+                  <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#6B7A2A]" />
                 )}
               </button>
 
-              {/* Cart Drawer Trigger with animated count badge */}
+              {/* Cart Drawer Trigger */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2 rounded-xl bg-[#171715] hover:bg-[#20201c] border border-[#262622] hover:border-[#6B7A2A] text-white hover:text-[#F5C400] transition-all flex items-center gap-2 group"
+                className="relative p-2 px-3 rounded-xl bg-[#4A5520] hover:bg-[#384318] text-white transition-all flex items-center gap-2 group shadow-sm active:scale-95"
                 aria-label="Open Cart"
               >
-                <ShoppingCart size={20} />
-                <span className="hidden sm:inline text-xs font-mono font-semibold text-[#EDE3CF] group-hover:text-[#F5C400]">
+                <ShoppingCart size={18} className="text-[#F5C400]" />
+                <span className="hidden sm:inline text-xs font-mono font-bold tracking-wide">
                   Cart
                 </span>
                 {cartCount > 0 && (
@@ -329,7 +321,7 @@ export const Header = () => {
                     key={cartCount}
                     initial={{ scale: 0.6 }}
                     animate={{ scale: 1 }}
-                    className="flex items-center justify-center min-w-5 h-5 px-1.5 text-[11px] font-mono font-bold bg-[#F5C400] text-[#0B0B0A] rounded-full"
+                    className="flex items-center justify-center min-w-5 h-5 px-1 text-[11px] font-mono font-bold bg-[#F5C400] text-[#0B0B0A] rounded-full"
                   >
                     {cartCount}
                   </motion.span>
@@ -339,7 +331,7 @@ export const Header = () => {
               {/* Mobile Menu Hamburger */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 rounded-xl text-[#EDE3CF] hover:text-[#F5C400] hover:bg-[#171715] transition-colors"
+                className="lg:hidden p-2 rounded-xl text-[#171D0A] hover:text-[#4A5520] hover:bg-[#DFD4BD]/60 transition-colors"
                 aria-label="Toggle Navigation Menu"
               >
                 {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -351,15 +343,15 @@ export const Header = () => {
           <div className="mt-3 md:hidden">
             <form
               onSubmit={handleSearchSubmit}
-              className="flex items-center bg-[#171715] border border-[#262622] rounded-xl overflow-hidden px-3 py-2"
+              className="flex items-center bg-[#FAF6ED] border border-[#4A5520]/25 rounded-xl overflow-hidden px-3 py-2"
             >
-              <Search size={16} className="text-[#EDE3CF]/60 mr-2 flex-shrink-0" />
+              <Search size={16} className="text-[#4F5938] mr-2 flex-shrink-0" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={displayedPlaceholder}
-                className="w-full bg-transparent text-sm text-white placeholder-[#EDE3CF]/40 outline-none font-body"
+                className="w-full bg-transparent text-sm text-[#171D0A] placeholder-[#4F5938]/60 outline-none font-body"
               />
             </form>
           </div>
@@ -374,11 +366,11 @@ export const Header = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-40 bg-[#0B0B0A] pt-24 pb-20 px-6 flex flex-col justify-between overflow-y-auto"
+            className="fixed inset-0 z-40 bg-[#EDE3CF] pt-24 pb-20 px-6 flex flex-col justify-between overflow-y-auto text-[#171D0A]"
           >
             <div className="space-y-6">
-              <div className="border-b border-[#262622] pb-4">
-                <span className="text-xs font-mono text-[#A3B04B] uppercase tracking-wider">
+              <div className="border-b border-[#DFD4BD] pb-4">
+                <span className="text-xs font-mono text-[#4A5520] font-bold uppercase tracking-wider">
                   Menu & Categories
                 </span>
               </div>
@@ -408,18 +400,18 @@ export const Header = () => {
                       setIsMobileMenuOpen(false);
                       item.action();
                     }}
-                    className="text-left font-heading font-semibold text-lg text-white hover:text-[#F5C400] flex items-center justify-between py-1"
+                    className="text-left font-heading font-bold text-lg text-[#171D0A] hover:text-[#4A5520] flex items-center justify-between py-1 border-b border-[#DFD4BD]/50"
                   >
                     <span>{item.label}</span>
-                    <ArrowRight size={16} className="text-[#6B7A2A]" />
+                    <ArrowRight size={16} className="text-[#4A5520]" />
                   </motion.button>
                 ))}
               </div>
             </div>
 
-            <div className="pt-6 border-t border-[#262622] text-xs font-mono text-[#EDE3CF]/60">
+            <div className="pt-6 border-t border-[#DFD4BD] text-xs font-mono text-[#4F5938]">
               <p>CIRCUITBAZZAR CORP. BANGALORE</p>
-              <p className="text-[#A3B04B] mt-1">24H DISPATCH • VERIFIED SILICON</p>
+              <p className="text-[#4A5520] font-bold mt-1">24H DISPATCH • VERIFIED SILICON</p>
             </div>
           </motion.div>
         )}

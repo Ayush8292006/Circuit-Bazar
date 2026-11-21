@@ -9,21 +9,21 @@ export const CategorySection = () => {
   const { navigateTo } = useShop();
 
   return (
-    <section className="py-20 bg-[#0B0B0A] relative">
+    <section className="py-20 bg-[#EDE3CF] relative text-[#171D0A] border-t border-[#DFD4BD]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-[#262622]">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b-2 border-[#DFD4BD]">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[#A3B04B] uppercase tracking-wider mb-2">
+            <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#4A5520] uppercase tracking-wider mb-2">
               <Layers size={14} /> Catalog Architecture
             </div>
-            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white">
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#171D0A]">
               Shop by Category
             </h2>
           </div>
           <button
             onClick={() => navigateTo('listing')}
-            className="mt-4 sm:mt-0 text-xs font-mono text-[#F5C400] hover:text-white flex items-center gap-1 group self-start"
+            className="mt-4 sm:mt-0 text-xs font-mono font-bold text-[#4A5520] hover:text-[#252D0F] flex items-center gap-1 group self-start"
           >
             <span>EXPLORE ALL CATEGORIES</span>
             <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -40,7 +40,7 @@ export const CategorySection = () => {
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: idx * 0.05 }}
               onClick={() => navigateTo('listing', null, cat.id)}
-              className="group relative flex-shrink-0 w-64 sm:w-72 md:w-auto aspect-[4/5] rounded-2xl overflow-hidden bg-[#141412] border border-[#262622] hover:border-[#6B7A2A] transition-all duration-300 cursor-pointer snap-start flex flex-col justify-end p-5"
+              className="group relative flex-shrink-0 w-64 sm:w-72 md:w-auto aspect-[4/5] rounded-2xl overflow-hidden bg-[#FAF6ED] border-2 border-[#4A5520]/25 hover:border-[#4A5520] transition-all duration-300 cursor-pointer snap-start flex flex-col justify-end p-5 shadow-sm hover:shadow-elevated"
             >
               {/* Real Category Photograph */}
               <div className="absolute inset-0 z-0">
@@ -51,25 +51,25 @@ export const CategorySection = () => {
                   className="w-full h-full object-cover transition-transform duration-700 ease-brand group-hover:scale-110"
                 />
                 {/* Dark Olive Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0A] via-[#0B0B0A]/80 to-[#4A5520]/40 group-hover:via-[#4A5520]/60 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#171D0A] via-[#171D0A]/75 to-[#4A5520]/30 group-hover:via-[#262E10]/80 transition-colors duration-500" />
               </div>
 
               {/* Card Meta Content */}
-              <div className="relative z-10">
+              <div className="relative z-10 text-white">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-mono text-[#F5C400] font-semibold tracking-wider">
+                  <span className="text-[11px] font-mono text-[#F5C400] font-bold tracking-wider">
                     {cat.itemCount}
                   </span>
                   {/* Arrow reveal on hover */}
-                  <div className="w-8 h-8 rounded-full bg-[#EDE3CF] group-hover:bg-[#F5C400] text-[#0B0B0A] flex items-center justify-center transition-all duration-300 opacity-90 group-hover:opacity-100 group-hover:rotate-45">
+                  <div className="w-8 h-8 rounded-full bg-[#EDE3CF] group-hover:bg-[#F5C400] text-[#0B0B0A] flex items-center justify-center transition-all duration-300 opacity-90 group-hover:opacity-100 group-hover:rotate-45 shadow-sm">
                     <ArrowUpRight size={16} />
                   </div>
                 </div>
 
-                <h3 className="font-heading font-bold text-lg sm:text-xl text-white group-hover:text-[#F5C400] transition-colors leading-tight mb-1.5">
+                <h3 className="font-heading font-extrabold text-lg sm:text-xl text-white group-hover:text-[#F5C400] transition-colors leading-tight mb-1.5">
                   {cat.name}
                 </h3>
-                <p className="text-xs font-body text-[#EDE3CF]/75 line-clamp-2">
+                <p className="text-xs font-body text-[#EDE3CF]/85 line-clamp-2">
                   {cat.description}
                 </p>
               </div>

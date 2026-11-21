@@ -14,7 +14,6 @@ export const CustomCursor = () => {
   const smoothY = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    // Only enable on desktop with fine mouse pointer and no reduced motion
     const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!hasFinePointer || prefersReduced) return;
@@ -62,9 +61,9 @@ export const CustomCursor = () => {
 
   return (
     <>
-      {/* Outer subtle halo */}
+      {/* Outer subtle halo in olive/gold */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full border border-[#F5C400]/40 mix-blend-difference"
+        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full border-2 border-[#4A5520]/50"
         style={{
           x: smoothX,
           y: smoothY,
@@ -74,13 +73,13 @@ export const CustomCursor = () => {
         animate={{
           width: isHovered ? 48 : 26,
           height: isHovered ? 48 : 26,
-          backgroundColor: isHovered ? 'rgba(245, 196, 0, 0.15)' : 'rgba(245, 196, 0, 0)',
+          backgroundColor: isHovered ? 'rgba(74, 85, 32, 0.12)' : 'rgba(74, 85, 32, 0)',
         }}
         transition={{ type: 'spring', damping: 25, stiffness: 400 }}
       />
       {/* Inner precise dot */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full bg-[#F5C400]"
+        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full bg-[#4A5520]"
         style={{
           x: cursorX,
           y: cursorY,
@@ -90,6 +89,7 @@ export const CustomCursor = () => {
         animate={{
           width: isHovered ? 8 : 6,
           height: isHovered ? 8 : 6,
+          backgroundColor: isHovered ? '#6B7A2A' : '#4A5520',
         }}
         transition={{ duration: 0.15 }}
       />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useShop } from './context/ShopContext';
 import { useLenis } from './hooks/useLenis';
 import { WelcomeScreen } from './components/WelcomeScreen';
@@ -29,7 +29,7 @@ export const App = () => {
   });
 
   return (
-    <div className="relative min-h-screen bg-[#0B0B0A] text-white selection:bg-[#F5C400] selection:text-[#0B0B0A]">
+    <div className="relative min-h-screen bg-[#EDE3CF] text-[#171D0A] selection:bg-[#F5C400] selection:text-[#0B0B0A]">
       {/* Intro Welcome Screen (First visit only) */}
       {showIntro && <WelcomeScreen onComplete={() => setShowIntro(false)} />}
 

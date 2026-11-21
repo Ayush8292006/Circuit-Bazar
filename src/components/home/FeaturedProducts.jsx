@@ -19,15 +19,15 @@ export const FeaturedProducts = () => {
   };
 
   return (
-    <section className="py-20 bg-[#0B0B0A] relative border-t border-[#262622]">
+    <section className="py-20 bg-[#EDE3CF] relative border-t-2 border-[#DFD4BD] text-[#171D0A]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Navigation Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#262622]">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b-2 border-[#DFD4BD]">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[#F5C400] uppercase tracking-wider mb-2">
-              <Zap size={14} className="fill-[#F5C400]" /> High Demand Components
+            <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#4A5520] uppercase tracking-wider mb-2">
+              <Zap size={14} className="fill-[#F5C400] text-[#4A5520]" /> High Demand Components
             </div>
-            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white">
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#171D0A]">
               Featured Silicon & Hardware
             </h2>
           </div>
@@ -37,14 +37,14 @@ export const FeaturedProducts = () => {
             <div className="hidden sm:flex items-center gap-2">
               <button
                 onClick={() => handleScroll('left')}
-                className="w-10 h-10 rounded-xl bg-[#141412] hover:bg-[#1E1E1B] border border-[#262622] hover:border-[#6B7A2A] text-white flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-xl bg-[#FAF6ED] hover:bg-[#F3EBD9] border-2 border-[#4A5520]/25 hover:border-[#4A5520] text-[#171D0A] flex items-center justify-center transition-colors shadow-sm"
                 aria-label="Scroll left"
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={() => handleScroll('right')}
-                className="w-10 h-10 rounded-xl bg-[#141412] hover:bg-[#1E1E1B] border border-[#262622] hover:border-[#6B7A2A] text-white flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-xl bg-[#FAF6ED] hover:bg-[#F3EBD9] border-2 border-[#4A5520]/25 hover:border-[#4A5520] text-[#171D0A] flex items-center justify-center transition-colors shadow-sm"
                 aria-label="Scroll right"
               >
                 <ChevronRight size={18} />
@@ -53,7 +53,7 @@ export const FeaturedProducts = () => {
 
             <button
               onClick={() => navigateTo('listing')}
-              className="text-xs font-mono text-[#A3B04B] hover:text-[#F5C400] flex items-center gap-1 transition-colors"
+              className="text-xs font-mono font-bold text-[#4A5520] hover:text-[#252D0F] flex items-center gap-1 transition-colors"
             >
               <span>VIEW FULL INVENTORY</span>
               <ArrowRight size={14} />

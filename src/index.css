@@ -5,13 +5,13 @@
 @layer base {
   html {
     font-family: 'Inter', sans-serif;
-    color-scheme: dark;
-    background-color: #0B0B0A;
+    color-scheme: light;
+    background-color: #EDE3CF;
   }
 
   body {
-    background-color: #0B0B0A;
-    color: #FFFFFF;
+    background-color: #EDE3CF;
+    color: #171D0A;
     overflow-x: hidden;
   }
 
