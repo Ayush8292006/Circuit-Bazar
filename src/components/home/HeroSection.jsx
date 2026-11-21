@@ -1,117 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Cpu, Zap, Shield, Sparkles, Box, Check, ShoppingCart, Crosshair, Terminal } from 'lucide-react';
+import { ArrowRight, ShoppingCart, Check, ShieldCheck, Box } from 'lucide-react';
 import { useShop } from '../../context/ShopContext';
 import { PRODUCTS } from '../../data/products';
 import { SafeImage } from '../SafeImage';
 
-const HERO_COMPONENTS = [
-  {
-    id: "cb-mcu-uno3",
-    code: "MCU-UNO-R3",
-    name: "Arduino Uno R3",
-    fullName: "Arduino Uno R3 ATmega328P",
-    category: "Microcontroller Board",
-    price: 1850,
-    originalPrice: 2200,
-    stock: 48,
-    image: PRODUCTS[0].image,
-    telemetry: {
-      voltage: "5.0V DC",
-      clock: "16.0 MHz",
-      memory: "32 KB Flash",
-      gpio: "14 Digital / 6 PWM",
-      bus: "UART / I2C / SPI",
-      socket: "DIP-28 Socket"
-    },
-    probes: [
-      { id: "mcu", x: 64, y: 65, name: "ATmega328P MCU", note: "8-bit AVR RISC processor, 16 MIPS" },
-      { id: "reg", x: 23, y: 78, name: "Voltage Regulator", note: "Dual 5V / 3.3V linear LDO system" },
-      { id: "com", x: 20, y: 25, name: "USB Serial Bridge", note: "ATmega16U2 for high-speed DFU upload" },
-      { id: "io", x: 68, y: 14, name: "Digital PWM Rails", note: "14 TTL headers with 20mA sinking" }
-    ]
-  },
-  {
-    id: "cb-mcu-esp32",
-    code: "ESP32-WROOM",
-    name: "ESP32 NodeMCU",
-    fullName: "ESP32 NodeMCU Wi-Fi + BLE",
-    category: "IoT Microcontroller",
-    price: 499,
-    originalPrice: 650,
-    stock: 120,
-    image: PRODUCTS[1].image,
-    telemetry: {
-      voltage: "3.3V Logic",
-      clock: "240 MHz",
-      memory: "4 MB SPI Flash",
-      gpio: "36 Multi-Function",
-      bus: "Wi-Fi + BLE 4.2",
-      socket: "NodeMCU Breadboard"
-    },
-    probes: [
-      { id: "core", x: 50, y: 44, name: "Xtensa Dual-Core", note: "32-bit LX6 microprocessor @ 240MHz" },
-      { id: "ant", x: 50, y: 15, name: "2.4GHz Antenna", note: "Built-in PCB inverted-F Wi-Fi & BLE" },
-      { id: "usb", x: 50, y: 84, name: "CP2102 Bridge", note: "Auto-reset flash circuitry & Micro-USB" }
-    ]
-  },
-  {
-    id: "cb-sbc-rpi4",
-    code: "RPI4-MOD-4GB",
-    name: "Raspberry Pi 4",
-    fullName: "Raspberry Pi 4 Model B (4GB)",
-    category: "Single Board Computer",
-    price: 5890,
-    originalPrice: 6500,
-    stock: 16,
-    image: PRODUCTS[2].image,
-    telemetry: {
-      voltage: "5.0V / 3A Type-C",
-      clock: "1.5 GHz Quad",
-      memory: "4GB LPDDR4",
-      gpio: "40-Pin Header",
-      bus: "Dual 4K Micro-HDMI",
-      socket: "Single Board Computer"
-    },
-    probes: [
-      { id: "soc", x: 48, y: 48, name: "Broadcom BCM2711", note: "Quad-core Cortex-A72 (ARM v8) 64-bit" },
-      { id: "ram", x: 68, y: 48, name: "4GB LPDDR4 SDRAM", note: "3200 MT/s high-speed memory" },
-      { id: "hdmi", x: 38, y: 86, name: "Dual Micro-HDMI", note: "4Kp60 hardware video decode & dual display" }
-    ]
-  },
-  {
-    id: "cb-sen-sr04",
-    code: "HC-SR04-SONAR",
-    name: "HC-SR04 Sonar",
-    fullName: "Ultrasonic Distance Sensor",
-    category: "Sensory Transceiver",
-    price: 110,
-    originalPrice: 160,
-    stock: 240,
-    image: PRODUCTS[3].image,
-    telemetry: {
-      voltage: "5.0V DC",
-      clock: "40 kHz Sound",
-      memory: "Analog Signal",
-      gpio: "Trig + Echo",
-      bus: "TTL 10us Pulse",
-      socket: "4-Pin 2.54mm Pitch"
-    },
-    probes: [
-      { id: "tx", x: 32, y: 45, name: "Transmitter Pod", note: "Emits 40kHz ultrasonic wave burst" },
-      { id: "rx", x: 68, y: 45, name: "Receiver Pod", note: "Detects reflected acoustic pulse return" },
-      { id: "pins", x: 50, y: 88, name: "4-Pin Header", note: "VCC, Trig, Echo, GND connections" }
-    ]
-  }
-];
-
 export const HeroSection = () => {
   const { navigateTo, addToCart } = useShop();
 
-  const [activeTab, setActiveTab] = useState(0);
-  const [activeProbe, setActiveProbe] = useState(null);
+  // Flagship component for clean showcase
+  const [selectedHeroIndex, setSelectedHeroIndex] = useState(0);
 
-  // Live Stats Counter
+  const heroShowcaseItems = [
+    {
+      product: PRODUCTS[0], // Arduino Uno
+      badge: "ORIGINAL ATMEGA328P",
+      specs: "16 MHz • 5V Logic • 14 Digital I/O",
+      tag: "Best Seller"
+    },
+    {
+      product: PRODUCTS[1], // ESP32
+      badge: "DUAL-CORE WI-FI + BLE",
+      specs: "240 MHz • 4MB Flash • 36 GPIOs",
+      tag: "IoT Pick"
+    },
+    {
+      product: PRODUCTS[2], // Raspberry Pi 4
+      badge: "QUAD-CORE 64-BIT SBC",
+      specs: "4GB RAM • Dual 4K HDMI • Gigabit LAN",
+      tag: "High Power"
+    }
+  ];
+
+  const currentItem = heroShowcaseItems[selectedHeroIndex];
+
+  // Stats Count-up simulation
   const [stats, setStats] = useState({ products: 0, makers: 0, dispatch: 0 });
 
   useEffect(() => {
@@ -136,17 +59,15 @@ export const HeroSection = () => {
   }, []);
 
   const headlineWords = ["Build", "what's", "next.", "Component", "by", "component."];
-  const currentItem = HERO_COMPONENTS[activeTab];
-  const matchedProduct = PRODUCTS.find((p) => p.id === currentItem.id) || PRODUCTS[0];
 
   const handleQuickAdd = () => {
-    addToCart(matchedProduct, 1);
+    addToCart(currentItem.product, 1);
   };
 
   return (
     <section className="relative min-h-[90vh] lg:min-h-screen pt-28 pb-16 lg:pt-36 lg:pb-24 flex flex-col justify-center overflow-hidden bg-[#EDE3CF] text-[#171D0A]">
       {/* Precision Industrial Grid Background on Beige */}
-      <div className="absolute inset-0 pointer-events-none opacity-25 bg-[linear-gradient(to_right,#4A552020_1px,transparent_1px),linear-gradient(to_bottom,#4A552020_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]">
+      <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(to_right,#4A552020_1px,transparent_1px),linear-gradient(to_bottom,#4A552020_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]">
         <div className="absolute inset-0 bg-gradient-to-t from-[#EDE3CF] via-transparent to-[#EDE3CF]" />
       </div>
 
@@ -155,7 +76,7 @@ export const HeroSection = () => {
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-[#4A5520]/10 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column: Headlines & Typography */}
           <div className="lg:col-span-6 flex flex-col items-start text-left">
             {/* Live Status Pill */}
@@ -273,186 +194,70 @@ export const HeroSection = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: Hardware Workbench Terminal in Warm Ivory & Olive */}
+          {/* Right Column: Clean, Elegant, High-End Hardware Showcase */}
           <div className="lg:col-span-6 w-full">
-            <div className="bg-[#FAF6ED] border-2 border-[#4A5520]/30 hover:border-[#4A5520] rounded-3xl overflow-hidden shadow-elevated transition-all duration-300">
-              {/* Terminal Title Bar */}
-              <div className="px-4 py-3 bg-[#EDE3CF] border-b border-[#4A5520]/20 flex items-center justify-between">
+            <div className="bg-[#FAF6ED] border-2 border-[#4A5520]/25 rounded-3xl p-5 sm:p-6 shadow-elevated">
+              {/* Top Meta Header */}
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#DFD4BD]">
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#4A5520]" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#6B7A2A]" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#A3B04B]" />
-                  </div>
-                  <span className="text-[11px] font-mono text-[#384318] font-bold ml-2">
-                    CIRCUITBAZZAR // BENCH TESTER
+                  <span className="w-2 h-2 rounded-full bg-[#4A5520]" />
+                  <span className="text-xs font-mono font-bold text-[#4A5520] uppercase tracking-wider">
+                    {currentItem.badge}
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-[#4A5520] bg-[#DFD4BD] px-2 py-0.5 rounded border border-[#4A5520]/30">
-                  <Terminal size={11} />
-                  <span>PROBE_ACTIVE</span>
-                </div>
+                <span className="text-[11px] font-mono text-[#4F5938] font-bold bg-[#EDE3CF] px-2.5 py-0.5 rounded-full border border-[#4A5520]/20">
+                  {currentItem.tag}
+                </span>
               </div>
 
-              {/* Hardware Selector Switcher Tabs */}
-              <div className="grid grid-cols-4 gap-1 p-2 bg-[#F3EBD9] border-b border-[#4A5520]/20">
-                {HERO_COMPONENTS.map((item, idx) => (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      setActiveTab(idx);
-                      setActiveProbe(null);
-                    }}
-                    className={`py-2 px-1 text-center rounded-xl transition-all ${
-                      activeTab === idx
-                        ? 'bg-[#4A5520] text-[#F7F2E7] shadow-sm font-bold'
-                        : 'text-[#4F5938] hover:text-[#171D0A] hover:bg-[#EDE3CF] border border-transparent'
-                    }`}
+              {/* Main Product Image Stage - Clean, Sharp, No Clutter */}
+              <div
+                onClick={() => navigateTo('detail', currentItem.product.id)}
+                className="relative w-full aspect-[4/3] rounded-2xl bg-[#EDE3CF] p-6 overflow-hidden flex items-center justify-center border border-[#4A5520]/20 cursor-pointer group"
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentItem.product.id}
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.02 }}
+                    transition={{ duration: 0.35, ease: 'easeOut' }}
+                    className="w-full h-full flex items-center justify-center"
                   >
-                    <span className="text-[9px] font-mono block opacity-75">0{idx + 1}</span>
-                    <span className="text-xs font-mono font-bold truncate block">{item.name}</span>
-                  </button>
-                ))}
-              </div>
+                    <SafeImage
+                      src={currentItem.product.image}
+                      alt={currentItem.product.name}
+                      mixBlend={true}
+                      aspectRatio="aspect-auto"
+                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </motion.div>
+                </AnimatePresence>
 
-              {/* Main Stage: High-Resolution Real Board with Interactive Probes */}
-              <div className="relative p-6 bg-[#FAF6ED] flex flex-col items-center">
-                {/* Circuit Grid Crosshairs */}
-                <div className="absolute inset-0 bg-[radial-gradient(#4A552015_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
-
-                {/* Component Presentation Card */}
-                <div className="relative w-full aspect-[4/3] rounded-2xl bg-[#EDE3CF] p-4 flex items-center justify-center overflow-hidden shadow-inner border border-[#4A5520]/20">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={currentItem.id}
-                      initial={{ opacity: 0, scale: 0.96 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 1.04 }}
-                      transition={{ duration: 0.35, ease: 'easeOut' }}
-                      className="relative w-full h-full flex items-center justify-center"
-                    >
-                      <SafeImage
-                        src={currentItem.image}
-                        alt={currentItem.fullName}
-                        mixBlend={true}
-                        aspectRatio="aspect-auto"
-                        className="w-full h-full object-contain"
-                      />
-
-                      {/* Interactive Probe Target Pins */}
-                      {currentItem.probes.map((probe) => {
-                        const isSelected = activeProbe?.id === probe.id;
-                        return (
-                          <div
-                            key={probe.id}
-                            style={{ left: `${probe.x}%`, top: `${probe.y}%` }}
-                            className="absolute -translate-x-1/2 -translate-y-1/2 z-20 group/probe cursor-pointer"
-                            onClick={() => setActiveProbe(isSelected ? null : probe)}
-                            onMouseEnter={() => setActiveProbe(probe)}
-                          >
-                            <div className="relative flex items-center justify-center">
-                              <span className={`absolute w-6 h-6 rounded-full transition-all duration-300 ${
-                                isSelected ? 'bg-[#4A5520]/40 scale-125 animate-ping' : 'bg-[#6B7A2A]/40'
-                              }`} />
-                              <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors shadow-sm ${
-                                isSelected
-                                  ? 'bg-[#4A5520] border-[#FAF6ED] text-[#FAF6ED]'
-                                  : 'bg-[#FAF6ED] border-[#4A5520] text-[#4A5520]'
-                              }`}>
-                                <Crosshair size={10} strokeWidth={2.5} />
-                              </span>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {/* Top-Right HUD Tag */}
-                  <div className="absolute top-3 right-3 bg-[#FAF6ED]/90 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-mono font-bold text-[#4A5520] border border-[#4A5520]/30 shadow-sm">
-                    SKU: {currentItem.code}
-                  </div>
-                </div>
-
-                {/* Interactive Probe HUD Telemetry Callout */}
-                <div className="w-full mt-4 min-h-[58px]">
-                  {activeProbe ? (
-                    <motion.div
-                      key={activeProbe.id}
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="w-full p-2.5 rounded-xl bg-[#EDE3CF] border-2 border-[#4A5520] flex items-center justify-between shadow-sm"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 rounded-lg bg-[#4A5520] text-[#F5C400] flex items-center justify-center flex-shrink-0">
-                          <Cpu size={14} />
-                        </div>
-                        <div>
-                          <p className="font-mono font-bold text-xs text-[#171D0A]">
-                            {activeProbe.name}
-                          </p>
-                          <p className="font-body text-[11px] text-[#4F5938] font-medium">
-                            {activeProbe.note}
-                          </p>
-                        </div>
-                      </div>
-                      <span className="text-[9px] font-mono text-[#4A5520] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#DFD4BD] border border-[#4A5520]/30">
-                        PROBED
-                      </span>
-                    </motion.div>
-                  ) : (
-                    <div className="w-full p-2.5 rounded-xl bg-[#EDE3CF]/70 border border-[#4A5520]/20 flex items-center justify-between text-xs font-mono text-[#4F5938]">
-                      <span className="flex items-center gap-2">
-                        <Crosshair size={13} className="text-[#4A5520]" />
-                        <span>Hover or tap crosshairs to probe silicon pins</span>
-                      </span>
-                      <span className="text-[10px] font-bold text-[#4A5520]">4 PROBE POINTS</span>
-                    </div>
-                  )}
+                {/* Subtle Hover Hint */}
+                <div className="absolute bottom-3 right-3 bg-[#FAF6ED]/90 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-mono font-bold text-[#4A5520] border border-[#4A5520]/30 opacity-0 group-hover:opacity-100 transition-opacity">
+                  VIEW FULL SPECS →
                 </div>
               </div>
 
-              {/* Technical Telemetry Grid (Voltage, Clock, Flash) */}
-              <div className="grid grid-cols-3 divide-x divide-[#4A5520]/20 border-t border-[#4A5520]/20 bg-[#EDE3CF] p-3 text-[11px] font-mono">
-                <div className="px-2">
-                  <span className="text-[#4F5938] block text-[9px] font-medium">V_OPERATING</span>
-                  <span className="text-[#171D0A] font-bold">{currentItem.telemetry.voltage}</span>
-                </div>
-                <div className="px-2">
-                  <span className="text-[#4F5938] block text-[9px] font-medium">CLOCK_SPEED</span>
-                  <span className="text-[#4A5520] font-bold">{currentItem.telemetry.clock}</span>
-                </div>
-                <div className="px-2">
-                  <span className="text-[#4F5938] block text-[9px] font-medium">FLASH_MEMORY</span>
-                  <span className="text-[#171D0A] font-bold">{currentItem.telemetry.memory}</span>
-                </div>
-              </div>
-
-              {/* Console Action Bar with Price & Quick Add */}
-              <div className="p-4 bg-[#FAF6ED] border-t border-[#4A5520]/20 flex items-center justify-between gap-4">
+              {/* Product Info & Quick Action Bar */}
+              <div className="mt-4 pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="font-heading font-extrabold text-2xl text-[#171D0A]">
-                      ₹{currentItem.price.toLocaleString('en-IN')}
-                    </span>
-                    <span className="text-xs font-mono text-[#4F5938] line-through">
-                      ₹{currentItem.originalPrice.toLocaleString('en-IN')}
-                    </span>
-                  </div>
-                  <span className="text-[10px] font-mono text-[#4A5520] font-bold flex items-center gap-1 mt-0.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#4A5520]" />
-                    {currentItem.stock} units ready for dispatch
-                  </span>
+                  <h3
+                    onClick={() => navigateTo('detail', currentItem.product.id)}
+                    className="font-heading font-bold text-base text-[#171D0A] hover:text-[#4A5520] cursor-pointer transition-colors"
+                  >
+                    {currentItem.product.name}
+                  </h3>
+                  <p className="text-xs font-mono text-[#4F5938] mt-0.5">
+                    {currentItem.specs}
+                  </p>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => navigateTo('detail', currentItem.id)}
-                    className="px-3 py-2 rounded-xl border border-[#4A5520]/30 hover:border-[#4A5520] text-xs font-mono font-bold text-[#4A5520] hover:bg-[#EDE3CF] transition-colors"
-                  >
-                    Datasheet
-                  </button>
-
+                <div className="flex items-center gap-3 self-end sm:self-center">
+                  <span className="font-heading font-extrabold text-xl text-[#171D0A]">
+                    ₹{currentItem.product.price.toLocaleString('en-IN')}
+                  </span>
                   <button
                     onClick={handleQuickAdd}
                     className="py-2.5 px-4 rounded-xl bg-[#4A5520] hover:bg-[#384318] text-[#F7F2E7] font-heading font-bold text-xs transition-all flex items-center gap-1.5 shadow-md active:scale-95"
@@ -460,6 +265,28 @@ export const HeroSection = () => {
                     <ShoppingCart size={13} className="text-[#F5C400]" />
                     <span>Quick Add</span>
                   </button>
+                </div>
+              </div>
+
+              {/* Minimal Clean Switcher Tabs at Bottom */}
+              <div className="mt-4 pt-3 border-t border-[#DFD4BD] flex items-center justify-between">
+                <span className="text-[11px] font-mono text-[#4F5938] font-semibold">
+                  FEATURED HARDWARE:
+                </span>
+                <div className="flex items-center gap-1.5">
+                  {heroShowcaseItems.map((item, idx) => (
+                    <button
+                      key={item.product.id}
+                      onClick={() => setSelectedHeroIndex(idx)}
+                      className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all ${
+                        selectedHeroIndex === idx
+                          ? 'bg-[#4A5520] text-[#F7F2E7] shadow-sm'
+                          : 'bg-[#EDE3CF] text-[#4F5938] hover:text-[#171D0A] border border-[#4A5520]/20'
+                      }`}
+                    >
+                      {item.product.name.split(' ')[0]} {item.product.name.split(' ')[1]}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
