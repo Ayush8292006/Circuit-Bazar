@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Send, ArrowUp, ShieldCheck, Cpu, Heart, CheckCircle2 } from 'lucide-react';
+import { Send, ArrowUp, ShieldCheck, Cpu, Heart, CheckCircle2, Sparkles } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { CATEGORIES } from '../data/categories';
 
 export const Footer = () => {
-  const { navigateTo, showToast } = useShop();
+  const { navigateTo, showToast, replayIntro } = useShop();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -143,14 +143,13 @@ export const Footer = () => {
                 </button>
               </li>
               <li>
-                <a href="#datasheets" className="hover:text-white transition-colors">
-                  PDF Datasheets Archive
-                </a>
-              </li>
-              <li>
-                <a href="#pinouts" className="hover:text-white transition-colors">
-                  Pinout Interactive Viewer
-                </a>
+                <button
+                  onClick={replayIntro}
+                  className="hover:text-[#F5C400] transition-colors flex items-center gap-1 text-[#F5C400]"
+                >
+                  <Sparkles size={12} />
+                  <span>Replay Intro Animation</span>
+                </button>
               </li>
             </ul>
           </div>
@@ -182,7 +181,14 @@ export const Footer = () => {
           <p>© 2026 CircuitBazzar Technologies Pvt Ltd. All rights reserved.</p>
 
           <div className="flex items-center gap-6">
-            <span>SECURE PAYMENT: UPI • CARDS • NETBANKING</span>
+            <button
+              onClick={replayIntro}
+              className="text-[#EDE3CF] hover:text-[#F5C400] transition-colors font-bold flex items-center gap-1"
+            >
+              <Sparkles size={13} />
+              <span>REPLAY INTRO</span>
+            </button>
+            <span>•</span>
             <button
               onClick={scrollToTop}
               className="flex items-center gap-1.5 text-[#EDE3CF] hover:text-[#F5C400] transition-colors font-bold"

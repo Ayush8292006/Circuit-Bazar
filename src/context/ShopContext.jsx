@@ -10,6 +10,23 @@ export const ShopProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   
+  // Welcome Intro Animation State
+  const [showIntro, setShowIntro] = useState(() => {
+    try {
+      return !sessionStorage.getItem('circuitbazzar_visited');
+    } catch (e) {
+      return true;
+    }
+  });
+
+  const replayIntro = () => {
+    try {
+      sessionStorage.removeItem('circuitbazzar_visited');
+    } catch (e) {}
+    setShowIntro(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // Cart State (stored in localStorage)
   const [cart, setCart] = useState(() => {
     try {
@@ -139,6 +156,9 @@ export const ShopProvider = ({ children }) => {
         setSelectedCategory,
         searchQuery,
         setSearchQuery,
+        showIntro,
+        setShowIntro,
+        replayIntro,
         cart,
         addToCart,
         updateQuantity,

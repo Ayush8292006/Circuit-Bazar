@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useShop } from './context/ShopContext';
 import { useLenis } from './hooks/useLenis';
 import { WelcomeScreen } from './components/WelcomeScreen';
@@ -14,25 +14,14 @@ import { ProductListingPage } from './pages/ProductListingPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
 
 export const App = () => {
-  const { currentView } = useShop();
+  const { currentView, showIntro, setShowIntro } = useShop();
 
   // Initialize Lenis smooth scroll for desktop
   useLenis();
 
-  // Check if user visited in this session (skip on mobile to prevent any black screen lag)
-  const [showIntro, setShowIntro] = useState(() => {
-    try {
-      const isMobile = window.innerWidth < 768 || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-      if (isMobile) return false;
-      return !sessionStorage.getItem('circuitbazzar_visited');
-    } catch (e) {
-      return false;
-    }
-  });
-
   return (
     <div className="relative min-h-screen bg-[#EDE3CF] text-[#171D0A] selection:bg-[#F5C400] selection:text-[#0B0B0A] overflow-x-hidden">
-      {/* Intro Welcome Screen (Desktop first visit only) */}
+      {/* Animated PCB Trace Welcome Screen */}
       {showIntro && <WelcomeScreen onComplete={() => setShowIntro(false)} />}
 
       {/* Desktop Custom Follower Cursor */}
